@@ -1,0 +1,45 @@
+[project]
+name = "ycc"
+version = "0.1.0"
+description = "Yocto Collection Companion — a mobile-first web app to catalog and cost-track a personal collection of nerdy stuff."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+# Compatibility range, not an interpreter pin. The exact development
+# interpreter is pinned in `.python-version`; dependency versions are pinned in
+# `uv.lock`. The upper bound guards against silently claiming support for a
+# Python we have not tested — bump it deliberately when we validate on 3.13.
+requires-python = ">=3.12,<3.13"
+# Runtime dependencies are added in the stage that first imports them (e.g.
+# sqlmodel with the data model, fastapi with the web layer). pydantic-settings
+# backs the environment-driven configuration in `ycc.config`.
+dependencies = [
+    "pydantic-settings>=2.6",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ycc"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# Rule category prefixes: E=pycodestyle errors, F=Pyflakes (real logic issues),
+# I=isort (import ordering), UP=pyupgrade (modernize syntax), B=bugbear
+# (likely bugs), SIM=simplify (simpler equivalents).
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"

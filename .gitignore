@@ -61,6 +61,15 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Application data: the local SQLite database and its sidecar files. The
+# database lives under a git-ignored `data/` directory locally (YCC_DB_PATH);
+# in Docker it is a mounted, backed-up volume.
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
 # Flask stuff:
 instance/
 .webassets-cache

@@ -12,9 +12,11 @@ It is developed locally and intended to later self-host on a Synology NAS.
 
 ## Current state
 
-An early Python package scaffold: environment-driven configuration
-(`ycc.config`) with its tests, plus tooling (uv, Ruff, pytest). There is no
-web layer, database, or containerization yet — those arrive in later stages.
+An early Python package: environment-driven configuration (`ycc.config`), the
+collection ledger data model (`ycc.models` — `Counterparty`, `Transaction`,
+`Product`, `Copy`) with its `ycc.types` enums, and Alembic migrations
+(`alembic/`) that build the schema. Tooling is uv, Ruff, and pytest. There is
+no web layer or containerization yet — those arrive in later stages.
 
 ## Build, test, lint
 
@@ -38,6 +40,10 @@ uv run ruff format --check . # verify formatting
 - **Configuration:** environment-driven via `ycc.config.Settings`, `YCC_`
   prefix. Real values go in a git-ignored `.env`; `.env.example` is the
   committed template and must be kept in sync when settings are added.
+- **Schema changes:** the SQLModel classes in `ycc.models` are the source of
+  truth; Alembic migrations build the database from them. Pre-release we keep a
+  single migration and regenerate it on each schema change — see the migration
+  workflow in `DEVELOPING.md` before editing models.
 - **Lint/format:** Ruff, line length 100, rule set in `pyproject.toml`. Keep
   `ruff check` and `ruff format --check` clean.
 

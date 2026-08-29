@@ -11,6 +11,8 @@ the surface is deliberately minimal.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -30,6 +32,16 @@ class Settings(BaseSettings):
 
     # Human-readable application name, surfaced in the UI.
     app_name: str = "Yocto Collection Companion"
+
+    # Filesystem path to the SQLite database file. On the NAS this will point at
+    # a mounted volume inside a backed-up shared folder; locally it defaults to
+    # a git-ignored ``data/`` directory.
+    db_path: Path = Path("data/ycc.db")
+
+    @property
+    def database_url(self) -> str:
+        """SQLAlchemy connection URL for the configured SQLite database."""
+        return f"sqlite:///{self.db_path}"
 
 
 def get_settings() -> Settings:

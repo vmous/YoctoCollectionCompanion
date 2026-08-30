@@ -71,8 +71,9 @@ class Transaction(SQLModel, table=True):
     Shipping, tax, and fees are stored as separate amounts so that a per-item
     landed cost can be derived by allocating them across the transaction's
     copies. All monetary fields are integer minor units (cents) in ``currency``
-    to avoid floating-point drift; ``currency`` follows ISO 4217 and euro values
-    are derived via ``rate_to_eur``.
+    to avoid floating-point drift; ``currency`` follows ISO 4217. Conversion to
+    a reporting currency is done at presentation time from a rate cache, not
+    stored on the transaction.
     """
 
     id: int | None = Field(default=None, primary_key=True)
@@ -84,8 +85,11 @@ class Transaction(SQLModel, table=True):
     date: date
     counterparty_id: int | None = Field(default=None, foreign_key="counterparty.id")
 
+    # The currency the transaction was made in (ISO 4217). This and the date
+    # are immutable facts; the exchange rate to any reporting currency is
+    # derived at presentation time from a (date, currency) rate cache, not
+    # stored here.
     currency: str = "EUR"  # ISO 4217
-    rate_to_eur: float | None = None  # amount * rate = euros; filled manually for now
 
     shipping_cents: int = 0
     tax_cents: int = 0

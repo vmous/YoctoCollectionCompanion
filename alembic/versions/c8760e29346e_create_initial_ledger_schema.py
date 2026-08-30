@@ -1,8 +1,8 @@
 """create initial ledger schema
 
-Revision ID: a2f258febe71
+Revision ID: c8760e29346e
 Revises: 
-Create Date: 2026-08-28 16:02:57.694009
+Create Date: 2026-08-29 17:31:39.759132
 
 """
 from typing import Sequence, Union
@@ -13,7 +13,7 @@ import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'a2f258febe71'
+revision: str = 'c8760e29346e'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -46,7 +46,6 @@ def upgrade() -> None:
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('counterparty_id', sa.Integer(), nullable=True),
     sa.Column('currency', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-    sa.Column('rate_to_eur', sa.Float(), nullable=True),
     sa.Column('shipping_cents', sa.Integer(), nullable=False),
     sa.Column('tax_cents', sa.Integer(), nullable=False),
     sa.Column('fees_cents', sa.Integer(), nullable=False),

@@ -297,6 +297,7 @@ source = { editable = "." }
 dependencies = [
     { name = "alembic" },
     { name = "pycountry" },
+    { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "sqlmodel" },
 ]
@@ -311,6 +312,7 @@ dev = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.14" },
     { name = "pycountry", specifier = ">=24" },
+    { name = "pydantic", specifier = ">=2" },
     { name = "pydantic-settings", specifier = ">=2.6" },
     { name = "sqlmodel", specifier = ">=0.0.22" },
 ]

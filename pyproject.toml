@@ -14,10 +14,11 @@ requires-python = ">=3.12,<3.13"
 # sqlmodel with the data model, fastapi with the web layer). pydantic-settings
 # backs the environment-driven configuration in `ycc.config`.
 dependencies = [
-    "pydantic-settings>=2.6",
-    "sqlmodel>=0.0.22",
     "alembic>=1.14",
     "pycountry>=24",
+    "pydantic>=2",
+    "pydantic-settings>=2.6",
+    "sqlmodel>=0.0.22",
 ]
 
 [dependency-groups]

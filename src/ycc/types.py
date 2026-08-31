@@ -26,10 +26,9 @@ class ProductType(StrEnum):
     """Canonical values for :attr:`ycc.models.Product.type`.
 
     Stored as its lowercase value (e.g. ``"mtg"``) in a plain string column.
-    Only the types the app currently handles are listed; more are added as each
-    is built out. ``OTHER`` is the freeform escape hatch — its open-endedness
-    lives in that type's attribute schema, not in this discriminator.
+    The application supports only the collectible types listed here — each is
+    modelled explicitly with its own attribute schema; there is no generic
+    catch-all. New types are added deliberately as they are built out.
     """
 
     MTG = "mtg"
-    OTHER = "other"

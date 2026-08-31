@@ -14,4 +14,3 @@ def test_transaction_type_values():
 
 def test_product_type_values():
     assert ProductType.MTG == "mtg"
-    assert ProductType.OTHER == "other"
